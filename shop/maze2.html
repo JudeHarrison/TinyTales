@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventures in Magic Land</title>
+    <link rel="stylesheet" href="./sample.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Arial, sans-serif;
+      }
+
+      .main {
+        text-align: center;
+      }
+
+      #maze-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(
+          20,
+          30px
+        ); /* Adjust to match maze width */
+        gap: 0; /* No gaps between cells */
+      }
+
+      .row {
+        display: contents; /* Allows grid layout to work properly */
+      }
+
+      .cell {
+        width: 30px;
+        height: 30px;
+      }
+
+      .wall {
+        background-color: #33333300; /* Dark wall color */
+      }
+
+      #mc {
+        position: absolute;
+        transition: top 0.1s, left 0.1s; /* Smooth movement */
+      }
+
+      #dest {
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body onload="createMaze()">
+    <div class="main">
+      <h1>Adventures in Magic Land!</h1>
+      <div id="maze-container"></div>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Congratulations!</h2>
+        <p>You have completed this level.</p>
+        <button id="nextLevel" onclick="nextLevel()">Next</button>
+      </div>
+    </div>
+
+    <script>
+      const game = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ];
+
+      let mazearray = game;
+      let maze = document.getElementById("maze-container");
+      let mc = document.createElement("img");
+      mc.src = "./svgs/witch-flying-broom-svgrepo-com.svg"; // Main character
+      mc.id = "mc";
+      mc.width = "30";
+
+      let dest = document.createElement("img");
+      dest.src = "./svgs/location-pin-svgrepo-com.svg"; // Destination
+      dest.id = "dest";
+      dest.width = "30";
+
+      function createMaze() {
+        for (let i = 0; i < mazearray.length; i++) {
+          let row = document.createElement("div");
+          row.classList.add("row");
+
+          for (let j = 0; j < mazearray[i].length; j++) {
+            let cell = document.createElement("div");
+            cell.classList.add("cell");
+
+            if (mazearray[i][j] === 0) {
+              cell.classList.add("wall");
+            }
+            row.appendChild(cell);
+          }
+          maze.appendChild(row);
+        }
+
+        let mcPosition = { x: 18, y: 4 }; // Starting position of mc
+        let destPosition = { x: 18, y: 8 }; // Destination position (adjust as needed)
+
+        maze.appendChild(mc);
+        maze.appendChild(dest);
+        setmcposition(mcPosition.x, mcPosition.y);
+        setdestposition(destPosition.x, destPosition.y);
+
+        document.addEventListener("keydown", function (event) {
+          let key = event.key;
+
+          // Movement logic
+          if (
+            key === "ArrowUp" &&
+            mazearray[mcPosition.x - 1][mcPosition.y] === 1
+          ) {
+            mcPosition.x--;
+          } else if (
+            key === "ArrowDown" &&
+            mazearray[mcPosition.x + 1][mcPosition.y] === 1
+          ) {
+            mcPosition.x++;
+          } else if (
+            key === "ArrowLeft" &&
+            mazearray[mcPosition.x][mcPosition.y - 1] === 1
+          ) {
+            mcPosition.y--;
+          } else if (
+            key === "ArrowRight" &&
+            mazearray[mcPosition.x][mcPosition.y + 1] === 1
+          ) {
+            mcPosition.y++;
+          }
+
+          // Update the position of the character
+          setmcposition(mcPosition.x, mcPosition.y);
+
+          // Check for winning condition
+          if (
+            mcPosition.x === destPosition.x &&
+            mcPosition.y === destPosition.y
+          ) {
+            showModal(); // Show the modal instead of alert
+          }
+        });
+      }
+
+      function setmcposition(x, y) {
+        mc.style.top = x * 30 + "px"; // Adjust according to your maze cell size
+        mc.style.left = y * 30 + "px"; // Adjust according to your maze cell size
+      }
+
+      function setdestposition(x, y) {
+        dest.style.top = x * 30 + "px"; // Adjust according to your maze cell size
+        dest.style.left = y * 30 + "px"; // Adjust according to your maze cell size
+      }
+
+      function showModal() {
+        document.getElementById("modal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+
+      function nextLevel() {
+        window.location.href = "../../maze2.html"; // Adjust as necessary
+      }
+    </script>
+  </body>
+</html>

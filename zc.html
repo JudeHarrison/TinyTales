@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zebra Crossing Game</title>
+    <link rel="stylesheet" href="zstyle.css" />
+  </head>
+  <body>
+    <div id="gameContainer">
+      <!-- Traffic Light -->
+      <div class="traffic-light">
+        <svg id="red" width="100" height="100">
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            stroke="black"
+            stroke-width="3"
+            fill="grey"
+          />
+        </svg>
+        <svg id="yellow" width="100" height="100">
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            stroke="black"
+            stroke-width="3"
+            fill="grey"
+          />
+        </svg>
+        <svg id="green" width="100" height="100">
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            stroke="black"
+            stroke-width="3"
+            fill="grey"
+          />
+        </svg>
+      </div>
+
+      <!-- Boy Character -->
+      <div class="boy" id="boyContainer">
+        <img id="boyImg" src="./img/harry.png" alt="Boy" />
+      </div>
+
+      <!-- Move Button -->
+      <button id="moveBtn">Move</button>
+      <a href="./maze3.html"><button id="nextBtn">Next</button></a>
+      <!-- Warning Message -->
+      <p id="warning" class="hidden">Wait for green signal!</p>
+    </div>
+
+    <script src="zscript.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+body {
+  background-image: url("./img/school.png");
+  background-size: cover;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 150px 150px 150px 150px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-area: 2/7/5/9;
+}
+.ans1,
+.ans2,
+.ans3 {
+  background-color: rgb(255, 255, 255);
+  border: 3px solid black;
+  border-radius: 10px;
+  margin: 5px;
+  padding-left: 10px;
+}
+.answer {
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.correct {
+  background-color: #90ee90; /* Light green when correct */
+}
+.wrong {
+  background-color: rgb(221, 52, 52);
+}
+.hidden {
+  display: none; /* Hide the element initially */
+}
+#successMessage {
+  grid-area: 5/2/7/10;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+#successMessage p {
+  text-align: center;
+}
+p {
+  font-size: 18px;
+}
+.b3 {
+  grid-area: 1/5/2/7;
+}
+.bt {
+  width: 100%;
+  height: 100%;
+}
+.next-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #2196f3; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Change cursor to pointer */
+  font-size: 16px;
+  grid-area: -2/-2/-1/-1;
+  height: 40px;
+  margin-right: 40px;
+  border: black solid 3px;
+}
+
+.next-button:hover {
+  background-color: #1976d2; /* Darker blue on hover */
+}

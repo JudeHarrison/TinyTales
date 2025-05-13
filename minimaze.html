@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maze Adventures in Magic Land</title>
+    <link rel="stylesheet" href="./minimaze.css" />
+  </head>
+  <body onload="createMaze()">
+    <div class="main">
+      <h1>Adventures in Magic Land!</h1>
+      <div id="maze-container">
+        <img mc.src="./svgs/char-icon.png" ; alt="mc" id="mc" width="100px" />
+        <img
+          src="./svgs/one-circle-svgrepo-com.svg"
+          alt="one"
+          id="one"
+          width="100px"
+          style="display: none"
+        />
+        <img
+          src="./svgs/two-circle-svgrepo-com.svg"
+          alt="two"
+          id="two"
+          width="100px"
+          style="display: none"
+        />
+        <img
+          src="./svgs/three-circle-svgrepo-com.svg"
+          alt="dest"
+          id="dest"
+          width="100px"
+        />
+      </div>
+    </div>
+  </body>
+  <script>
+    let game = [
+      [1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1],
+      [1, 1, 1, 1, 1],
+      [0, 0, 1, 0, 0],
+    ];
+
+    let mazearray = game;
+    let maze = document.getElementById("maze-container");
+    let mc = document.getElementById("mc");
+    let dest = document.getElementById("dest");
+
+    function createMaze() {
+      for (let i = 0; i < mazearray.length; i++) {
+        let row = document.createElement("div");
+        row.classList.add("row");
+
+        for (let j = 0; j < mazearray[i].length; j++) {
+          let cell = document.createElement("div");
+          cell.classList.add("cell");
+
+          if (mazearray[i][j] == 0) {
+            cell.classList.add("wall");
+          }
+          row.appendChild(cell);
+        }
+        maze.appendChild(row);
+      }
+
+      let mcPosition = { x: 4, y: 2 }; // Starting position of mc
+
+      // Define the three destination positions
+      const destinations = [
+        { x: 0, y: 0 }, // Incorrect destination
+        { x: 0, y: 2 }, // Incorrect destination
+        { x: 0, y: 4 }, // Correct destination
+      ];
+
+      function setmcposition(x, y) {
+        mc.style.top = x * 100 + "px"; // Adjust according to your maze cell size
+        mc.style.left = y * 100 + "px"; // Adjust according to your maze cell size
+      }
+
+      function setdestposition(x, y) {
+        dest.style.top = x * 100 + "px"; // Adjust according to your maze cell size
+        dest.style.left = y * 100 + "px"; // Adjust according to your maze cell size
+      }
+
+      document.addEventListener("keydown", function (event) {
+        let key = event.key;
+
+        // Movement logic
+        if (
+          key === "ArrowUp" &&
+          mazearray[mcPosition.x - 1][mcPosition.y] === 1
+        ) {
+          mcPosition.x--;
+        } else if (
+          key === "ArrowDown" &&
+          mazearray[mcPosition.x + 1][mcPosition.y] === 1
+        ) {
+          mcPosition.x++;
+        } else if (
+          key === "ArrowLeft" &&
+          mazearray[mcPosition.x][mcPosition.y - 1] === 1
+        ) {
+          mcPosition.y--;
+        } else if (
+          key === "ArrowRight" &&
+          mazearray[mcPosition.x][mcPosition.y + 1] === 1
+        ) {
+          mcPosition.y++;
+        }
+
+        // Update the position of the character
+        setmcposition(mcPosition.x, mcPosition.y);
+
+        // Check for winning condition
+        if (
+          mcPosition.x === destinations[2].x && // Check if reached the correct destination
+          mcPosition.y === destinations[2].y
+        ) {
+          alert("Congratulations! You've reached the correct destination!");
+        } else if (
+          (mcPosition.x === destinations[0].x &&
+            mcPosition.y === destinations[0].y) ||
+          (mcPosition.x === destinations[1].x &&
+            mcPosition.y === destinations[1].y)
+        ) {
+          alert("Oops! That's not the correct destination.");
+        }
+      });
+
+      // Initial positioning
+      setmcposition(mcPosition.x, mcPosition.y);
+      setdestposition(destinations[2].x, destinations[2].y); // Set correct destination
+    }
+  </script>
+</html>

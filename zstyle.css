@@ -1,0 +1,69 @@
+body {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  background-image: url("./img/zc-bg.png"); /* Replace with your actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+#gameContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.traffic-light {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+}
+
+.boy {
+  position: absolute;
+  right: 10%; /* Starting position */
+  bottom: 50px;
+  transition: right 1s ease-in-out; /* Smooth transition */
+}
+
+#boyImg {
+  width: 200px;
+}
+
+#moveBtn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  background-color: rgb(5, 158, 87);
+}
+
+#warning {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+#nextBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: yellow;
+}

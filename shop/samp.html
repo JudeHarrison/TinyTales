@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link rel="stylesheet" href="samp.css" />
+    <script src="samp.js" defer></script>
+  </head>
+  <body>
+    <img class="bg" src="sswi.png" alt="Background Image" />
+
+    <div class="items">
+      <img id="i1" src="it1.png" alt="Item 1" data-text="129" />
+      <img id="i2" src="it2.png" alt="Item 2" data-text="219" />
+      <img id="i3" src="it3.png" alt="Item 3" data-text="99" />
+      <img id="i4" src="it4.png" alt="Item 4" data-text="19" />
+      <img id="i5" src="it5.png" alt="Item 5" data-text="219" />
+      <img id="i6" src="it6.png" alt="Item 6" data-text="159" />
+      <img id="i7" src="it7.png" alt="Item 7" data-text="39" />
+      <img id="i8" src="it8.png" alt="Item 8" data-text="129" />
+      <img id="i9" src="it9.png" alt="Item 9" data-text="89" />
+    </div>
+
+    <div class="bill" id="billDiv">
+      <h1>Bill</h1>
+      <p id="b1">Item1</p>
+      <p id="b2">Item2</p>
+      <input type="text" id="totalInput" placeholder="Bill Amount" />
+      <button class="bill-btn" id="verifyButton">Verify Total</button>
+    </div>
+
+    <div class="balance" id="balanceDiv">
+      <h1>Balance</h1>
+      <p id="ba1">Wallet: 500</p>
+      <p id="ba2">Total Bills: 0</p>
+      <input type="text" id="balanceInput" placeholder="Enter Balance" />
+      <button class="bill-btn" id="verifyBalanceButton">Verify Balance</button>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Congratulations!</h2>
+        <p>You have completed this level.</p>
+        <button id="nextLevel" onclick="nextLevel()">Next</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="shop.css">
+    <script src="shop.js"></script>
+</head>
+<body>
+    <img class="bg" src="./shop/sswi.png" alt="">
+
+    <div class="items">
+        <img id="i1" src="./shop/it1.png" alt="" data-text=" 129">
+        <img id="i2" src="./shop/it2.png" alt="" data-text=" 219">
+        <img id="i3" src="./shop/it3.png" alt="" data-text=" 99">
+        <img id="i4" src="./shop/it4.png" alt="" data-text=" 19">
+        <img id="i5" src="./shop/it5.png" alt="" data-text=" 219">
+        <img id="i6" src="./shop/it6.png" alt="" data-text=" 159">
+        <img id="i7" src="./shop/it7.png" alt="" data-text=" 39">
+        <img id="i8" src="./shop/it8.png" alt="" data-text=" 129">
+        <img id="i9" src="./shop/it9.png" alt="" data-text=" 89">
+    </div>
+    
+    <div class="bill" id="billDiv">
+        <h1>Bill</h1>
+        <p id="b1">Item1</p>
+        <p id="b2">Item2</p>
+        <!-- Add an input field for entering the total bill amount -->
+        <input type="text" id="totalInput" placeholder="Bill Amount">
+        <button class="bill-btn" id="verifyButton">Verify Total</button>
+    </div>
+    
+    <div class="balance" id="balanceDiv">
+        <h1>Balance</h1>
+        <p id="ba1">Wallet: 500</p> <!-- Static value (available balance) -->
+        <p id="ba2">Total Bills: 0</p> <!-- This will display the calculated total bills value -->
+        
+        <!-- Input for entering balance and button for verification -->
+        <input type="text" id="balanceInput" placeholder="Enter Balance">
+        <button class="bill-btn" id="verifyBalanceButton">Verify Balance</button>
+    </div>
+    
+        
+        <!-- Input for entering balance and button for verification -->
+        <input type="text" id="balanceInput" placeholder="Enter Balance">
+        <button class="bill-btn" id="verifyBalanceButton">Verify Balance</button>
+    </div>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2>Congratulations!</h2>
+          <p>You have completed this level.</p>
+          <a href="maze2.html"><button id="nextLevel" >Next</button></a>
+        </div>
+      </div>
+    
+    
+    <script src="shop.js"></script>
+    
+</body>
+</html>

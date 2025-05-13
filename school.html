@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>school</title>
+    <link rel="stylesheet" href="./school.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="answer ans1" onclick="checkAnswer(this, false)">
+        <p>"Just tell me where your classroom is. I don’t have all day."</p>
+      </div>
+
+      <div class="answer ans2" onclick="checkAnswer(this, false)">
+        <p>"Hey! What room do you teach in? Thanks!"</p>
+      </div>
+      <div class="answer ans3" onclick="checkAnswer(this, true)">
+        <p>
+          "Excuse me, could you please tell me where your classroom is? I’d
+          really appreciate your help."
+        </p>
+      </div>
+    </div>
+
+    <div id="successMessage" class="hidden message">
+      <p>
+        "Sure! Your classroom is Room 3B. You can find it down the hall on the
+        right."
+      </p>
+    </div>
+    <button
+      id="nextButton"
+      class="hidden next-button"
+      onclick="goToNextLevel()"
+    >
+      Next Level
+    </button>
+
+    <script>
+      function checkAnswer(element, isCorrect) {
+        if (isCorrect) {
+          element.classList.add("correct"); // Change background to green
+          document.getElementById("successMessage").classList.remove("hidden");
+          document.getElementById("nextButton").classList.remove("hidden"); // Show the next level button
+        } else {
+          element.classList.add("wrong");
+        }
+      }
+      function goToNextLevel() {
+        window.location.href = "./talkingowl/index.html";
+      }
+    </script>
+  </body>
+</html>
